@@ -5,34 +5,34 @@
 		 /* ---------------------------------------------
 					## Content Loading
 			--------------------------------------------- */
-        contentLoading: function () {
-        $("body").imagesLoaded(function () {
-        $('.preloader').delay(2000).fadeOut('slow');
+        contentLoading: function () {                        //perform content loading
+        $("body").imagesLoaded(function () { 
+        $('.preloader').delay(2000).fadeOut('slow');       //loading a image, and delay 2 seconds
         setTimeout(function () {
         //After 2s, the no-scroll class of the body will be removed
-        $('body').removeClass('no-scroll');
+        $('body').removeClass('no-scroll');            // if I don't scroll, dosn't show the new contents.
         $("body").addClass("loading-done");
-        }, 2000); //Here you can change preloader time
+        }, 2000);                                   //I can change preloader time
         });
         },
 
 		/* ---------------------------------------------
 			## Scroll top
 		--------------------------------------------- */
-        scroll_top: function () {
+        scroll_top: function () { d.  // this is for functioning the scrolling the web-page
         $('body').append(
-        "<a href='#top' id='scroll-top' class='topbutton btn-hide'><span  class='fas fa-angle-double-up'></span></a>"
-        );
-        var $scrolltop = $('#scroll-top');
-        $(window).on('scroll', function () {
-        if ($(this).scrollTop() > $(this).height()) {
-        $scrolltop.addClass('btn-show').removeClass('btn-hide');
+        "<a href='#top' id ='scroll-top' class='topbutton btn-hide'><span  class='fas fa-angle-double-up'></span></a>"
+        );                           // creating the link to another page 
+        var $scrolltop = $('#scroll-top');  // content is scrolled vertically
+        $(window).on('scroll', function () {  
+        if ($(this).scrollTop() > $(this).height()) {       // value of the scrolling top hight
+        $scrolltop.addClass('btn-show').removeClass('btn-hide');  //show and hide the button (on the top)
         } else {
         $scrolltop.addClass('btn-hide').removeClass('btn-show');
         }
         });
-        $("a[href='#top']").on('click', function () {
-        $('html, body').animate(
+        $("a[href='#top']").on('click', function () { // creating the link to 'top'
+        $('html, body').animate( // go to a specific element on page
         {
         scrollTop: 0,
         },
@@ -45,59 +45,61 @@
 		/* ---------------------------------------------
 			## Menu Script
 		--------------------------------------------- */
-        menu_script: function () {
-        var w = $(window).width();
-        if ($('.mobile-sidebar-menu').length && w < 1200) {
+        menu_script: function () { // presents Menu on the web-page
+        var w = $(window).width(); // w is the name of window
+        if ($('.mobile-sidebar-menu').length && w < 1200) { // mobile menu length
         var mobileMenu = $('.site-navigation .navigation').clone().appendTo('.mobile-sidebar-menu');
         }
 
-        if ($('.site-navigation .mainmenu').find('li > a').siblings('.sub-menu')) {
+        if ($('.site-navigation .mainmenu').find('li > a').siblings('.sub-menu')) { 
         $('.mainmenu li > .sub-menu').siblings('a').append("<span class='menu-arrow fas fa-angle-down'></span>");
-        }
+        }  //creating the submenu, available to select the indiidual submenus
 
         // Accordion Menu
-        var $AccordianMenu = $('.sidebar-menu .navigation a');
+        var $AccordianMenu = $('.sidebar-menu .navigation a'); 
+				// adding the navigation bar title to the webpage
         var $mobileSubMenuOpen = $('.hamburger-menus');
-        var $overlayClose = $('.overlaybg');
+        var $overlayClose = $('.overlaybg'); 
 
         $overlayClose.on('click', function (e) {
-        e.preventDefault();
-        $(this).parent().removeClass('sidemenu-active');
+        e.preventDefault(); 
+        $(this).parent().removeClass('sidemenu-active'); // preven default on link
         $mobileSubMenuOpen.removeClass("click-menu");
         $('#sticky-header').addClass("active");
-        });
+        });  // creating stcky header "active" 
 
         $mobileSubMenuOpen.on('click', function () {
-        $(this).toggleClass("click-menu");
+        $(this).toggleClass("click-menu"); // toggleclass on clicking menu link
         $('.mobile-sidebar-menu').toggleClass("sidemenu-active");
         $('#sticky-header').toggleClass("active");
-        });
+        }); // stcky header "active"
 
         $AccordianMenu.on('click', function () {
-        var link = $(this);
-        var closestUl = link.closest("ul");
-        var parallelActiveLinks = closestUl.find(".active")
+        var link = $(this);  // link is name of this
+        var closestUl = link.closest("ul"); // go back to first ancestor 
+        var parallelActiveLinks = closestUl.find(".active") 
         var closestLi = link.closest("li");
         var linkStatus = closestLi.hasClass("active");
-        var count = 0;
+        var count = 0; 
+				// operating my accordion menu
 
         closestUl.find("ul").slideUp(function () {
         if (++count == closestUl.find("ul").length)
         parallelActiveLinks.removeClass("active");
-        });
+        }); // activate the slide menu
 
         if (!linkStatus) {
         closestLi.children("ul").slideDown();
         closestLi.addClass("active");
         }
         });
-        },
+        },// seperating the style of link in Child and Parents 
 
 		/*-------------------------------------------
 			## Sticky Header
 		--------------------------------------------- */
         sticky_header: function () {
-        if ($('#sticky-header.active').length) {
+        if ($('#sticky-header.active').length) { 
         var stickyMenu = $('.site-header').clone().appendTo('#sticky-header');
         $(window).on('scroll', function () {
         var w = $(window).width();
@@ -106,7 +108,7 @@
         $('#sticky-header').slideDown(500);
         } else {
         $('#sticky-header').slideUp(500);
-        }
+        }  // creading a header that can scroll to a certain amount of pixels
         }
         });
         }
@@ -124,9 +126,10 @@
         }
         else {
         $(this).siblings('.search-form').removeClass('active').slideUp();
+				// when I slide the webpage up, remove the class
         $(this).siblings('.search-form').removeClass('active');
         $(this).addClass('active');
-        $(this).siblings('.search-form').addClass('active').slideDown();
+        $(this).siblings('.search-form').addClass('active').slideDown(); 
         }
         });
         },
@@ -136,19 +139,19 @@
 		--------------------------------------------- */
         frontpage_slider: function () {
         if ($('.frontpage-slider-one').length) {
-        $('.frontpage-slider-one').owlCarousel({
-        center: true,
+        $('.frontpage-slider-one').owlCarousel({ 
+        center: true, // the item will be placed in center of the webpage
         items: 1,
         autoplay: false,
-        autoplayTimeout: 3000,
-        smartSpeed: 800,
-        loop: true,
+        autoplayTimeout: 3000, // the related video will automatically play for 3 seconds
+        smartSpeed: 800, 
+        loop: true, // the item will repeat
         margin: 0,
         singleItem: true,
         dots: false,
-        nav: true,
+        nav: true, // navigation for the webpage
         navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
-        });
+        });  // the style for navigation
         }
         if ($('.frontpage-slider-two').length) {
         $('.frontpage-slider-two').owlCarousel({
@@ -167,8 +170,8 @@
         }
         if ($('.frontpage-slider-three').length) {
         $('.frontpage-slider-three').owlCarousel({
-        center: false,
-        items: 3,
+        center: false,     
+        items: 3,        
         autoplay: false,
         autoplayTimeout: 3000,
         smartSpeed: 800,
@@ -238,19 +241,19 @@
         $('[data-animate]').scrolla({
         mobile: true,
         once: true,
-        });
+        }); // the webpage animation script will presents when I scroll it and only play once
         },
 
 		/* ---------------------------------------------
 			## Masonry Grid
 		--------------------------------------------- */
-        masonry_grid: function () {
+        masonry_grid: function () { // layout for the webpage
         var $container = $('.masonry-posts');
-        $container.imagesLoaded(function () {
+        $container.imagesLoaded(function () { // space for images
         $container.masonry({
-        columnWidth: '.grid-item',
+        columnWidth: '.grid-item', // grid-item empty elemt, only used for element sizing
         itemSelector: '.grid-item',
-        percentPosition: true
+        percentPosition: true // layout with percentage
         });
         });
         },
@@ -264,7 +267,7 @@
         widthWithScroll = $('<div>').css({ width: '100%' }).appendTo($outer).outerWidth();
         $outer.remove();
         return 100 - widthWithScroll;
-        }
+        } // layout with percentage
 
         // Image Pop up
         var $popupImage = $(".popup-image");
